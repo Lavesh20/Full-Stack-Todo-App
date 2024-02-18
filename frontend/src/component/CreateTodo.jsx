@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function CreateTodo(){
+export function CreateTodo(props){
 
     const [title,setTitle] = useState("");
     const [description,setDescription] = useState("");
@@ -25,7 +25,11 @@ export function CreateTodo(){
                     description:description
                 }),
                 headers: {
-                    "ContentType" : "application/json"
+                    "Content-Type": "application/json",
+                    "Content-Length": JSON.stringify({
+                        title: title,
+                        description: description
+                    }).length.toString()
                 }
             })
             .then(async function(res){
